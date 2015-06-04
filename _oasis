@@ -1,0 +1,50 @@
+OASISFormat: 0.4
+Name:        ocaml-openreil
+Version:     0.1
+Synopsis:    Bindings for OpenREIL
+Authors:     Aziem Chawdhary
+License:     BSD-3-clause
+Plugins:     DevFiles (0.4), META (0.4)
+
+Library openreil
+  Path:       lib
+  FindlibName: openreil
+  Modules:    Openreil
+  BuildTools: ocamlbuild
+  InternalModules: Ffi_generated_types
+  CSources: ffi_generated_stubs.c
+  CCLib:    -lopenreil -lstdc++
+  ByteOpt:          -warn-error +1..45
+  NativeOpt:        -warn-error +1..45
+  BuildDepends: reil_bindings, ctypes.stubs, ctypes.foreign
+
+Library reil_bindings
+  Install: true
+  Path: bindings
+  Modules: Ffi_bindings
+  BuildDepends: ctypes.stubs
+  BuildTools: ocamlbuild
+
+Executable ffi_stubgen
+  Install: false
+  Path: stubgen
+  MainIs: ffi_stubgen.ml
+  BuildDepends: ctypes.stubs
+  BuildTools: ocamlbuild
+  BuildDepends: reil_bindings
+
+Executable ffi_types_stubgen
+  Install: false
+  Path: stubgen
+  MainIs: ffi_types_stubgen.ml
+  BuildDepends: ctypes.stubs
+  BuildTools: ocamlbuild
+  BuildDepends: reil_bindings
+
+Executable test_openreil
+  Install: false
+  Path: lib-test
+  BuildTools: ocamlbuild
+  MainIs: test_openreil.ml
+  CompiledObject: best
+  BuildDepends: openreil, ctypes

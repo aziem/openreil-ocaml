@@ -1,0 +1,12 @@
+Notes on binding openreil
+
+1. Convert the static library to a shared library:
+
+   ar -x libopenreil.a
+   gcc -shared *.o -o libopenreil.so
+
+   Copy libopenreil.so to /usr/local/lib
+
+2. In lib/openreil.ml we explicity open the shared library using the Dl module
+
+3. In _oasis include -lopenreil and -lstdc++ in the CCLib option 
