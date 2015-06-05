@@ -1,10 +1,11 @@
 open Openreil
 open Ctypes
+open Unsigned
 
 let _ =
-  Printf.printf "hello world";
   let testdata = "\x33\xC0" in
-  let inst_handler i j = 1 in
-  let r = allocate reil_t in 
-  let r' = reil_init T.ARCH_X86 inst_handler r in
-  ()
+  let inst_handler i j = reil_inst_print i;0 in
+  let i : int ptr = allocate int 0 in
+  let r' = reil_init T.ARCH_X86 inst_handler (to_voidp i) in
+  let t = reil_translate r' (ULLong.of_int 0) testdata 2 in
+  reil_close r'
