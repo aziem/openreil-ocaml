@@ -13,7 +13,6 @@ Library openreil
   BuildTools: ocamlbuild
   InternalModules: Ffi_generated_types
   CSources: ffi_generated_stubs.c
-  CCLib:    -lopenreil -lstdc++
   ByteOpt:          -warn-error +1..45
   NativeOpt:        -warn-error +1..45
   BuildDepends: reil_bindings, ctypes.stubs, ctypes.foreign
@@ -22,7 +21,7 @@ Library reil_bindings
   Install: true
   Path: bindings
   Modules: Ffi_bindings
-  BuildDepends: ctypes.stubs
+  BuildDepends: ctypes.stubs, ctypes.foreign
   BuildTools: ocamlbuild
 
 Executable ffi_stubgen
@@ -46,5 +45,6 @@ Executable test_openreil
   Path: lib-test
   BuildTools: ocamlbuild
   MainIs: test_openreil.ml
+  CCLib: -Wl,--whole-archive /usr/local/lib/libopenreil.a -Wl,--no-whole-archive -Wl,-E -lstdc++
   CompiledObject: best
   BuildDepends: openreil, ctypes

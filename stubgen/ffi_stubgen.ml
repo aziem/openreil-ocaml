@@ -12,5 +12,6 @@ let _ =
   | true, false ->
     Cstubs.write_ml Format.std_formatter ~prefix (module Ffi_bindings.Bindings)
   | false, true ->
+    print_endline "#include <stdint.h>";
     print_endline "#include \"/usr/local/include/libopenreil.h\"";
     Cstubs.write_c Format.std_formatter ~prefix (module Ffi_bindings.Bindings)

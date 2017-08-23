@@ -1,9 +1,12 @@
+
+DEFUNCT:
+
 Notes on binding openreil
 
 1. Convert the static library to a shared library:
 
    ar -x libopenreil.a
-   gcc -shared *.o -o libopenreil.so
+   gcc -shared *.o -o libopenreil.so -lstdc++
 
    Copy libopenreil.so to /usr/local/lib
 
