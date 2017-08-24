@@ -12,11 +12,9 @@ let reil_init = foreign "reil_init" (T.reil_arch_t @-> funptr (ptr T.reil_inst_t
 
 let reil_close = foreign "reil_close" (reil_t @-> returning void)
 
-
-
-type reil_instr_type = 
-  | Nop
-  | Unk
+type reil_instr_type = T.reil_op_t = 
+  | NONE
+  | UNK
   | JCC
   | STR
   | STM
@@ -39,6 +37,14 @@ type reil_instr_type =
   | EQ
   | LT
 
-type reil_type = A_NONE | REG | TEMP | CONST
+type reil_type = T.reil_type_t = 
+  | A_NONE
+  | A_REG
+  | A_TEMP
+  | A_CONST
+
+type reil_arch = T.reil_arch_t = 
+  | ARCH_X86
+  | ARCH_ARM
 
 
