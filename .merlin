@@ -1,5 +1,2 @@
-S .
-
-B _build
-
-PKG ctypes
+B _build/* 
+PKG ctypes ctypes.foreign
