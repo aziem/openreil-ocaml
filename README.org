@@ -1,0 +1,50 @@
+#+TITLE: OpenReil-OCaml
+
+OCaml bindings to OpenREIL. (Work in progress)
+
+Only tested on Linux. 
+
+
+* Installation
+  Get and install OpenREIL from [[https://github.com/Cr4sh/openreil][this repo]]. 
+
+  At the moment the bindings assume that OpenReil has been installed under /usr/local
+
+  Build it
+
+  
+* Using the bindings
+
+  There are two options to build against the bindings. By default openreil builds a static library (libopenreil.a)
+
+  1. Static linking
+
+     Use the following gcc flags:
+
+     #+BEGIN_SRC bash
+     -Wl,--whole-archive /usr/local/lib/libopenreil.a -Wl,--no-whole-archive -Wl,-E -lstdc++
+     #+END_SRC
+
+
+  2. Dynamic linking
+
+     To do this we need to build a shared library from the static library.
+
+     Convert the static library to a shared library:
+     
+     #+BEGIN_SRC 
+     ar -x libopenreil.a
+     gcc -shared *.o -o libopenreil.so -lstdc++
+     #+END_SRC
+
+     Then open the resulting so file to /usr/local/lib
+     
+     Then pass the linking options to the compiler:
+     #+BEGIN_SRC 
+     -lopenreil -lstdc++
+     #+END_SRC
+
+     Before executing the resultant executable make sure the path to
+     the so file is included in LD_LIBRARY_PATH
+  
+
