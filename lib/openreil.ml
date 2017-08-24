@@ -6,9 +6,18 @@ module T = Ffi_bindings.Types(Ffi_generated_types)
 type reil_t = unit ptr
 let reil_t : reil_t typ = ptr void
 
+type reil_inst = T.reil_inst_t Ctypes.structure ptr
+
+type context = unit ptr
+let context : context typ = ptr void 
+
+type reil_inst_handler = reil_inst -> context -> int
+
+let create_context () = (to_voidp (allocate int 0))
+
 let reil_translate = foreign "reil_translate" (reil_t @-> ullong @-> string @-> int @-> returning int) 
 let reil_inst_print = foreign "reil_inst_print" (ptr T.reil_inst_t @-> returning void) 
-let reil_init = foreign "reil_init" (T.reil_arch_t @-> funptr (ptr T.reil_inst_t @-> ptr void @-> returning int) @-> (ptr void) @-> returning (ptr void) ) 
+let reil_init = foreign "reil_init" (T.reil_arch_t @-> funptr (ptr T.reil_inst_t @-> ptr void @-> returning int) @-> (ptr void) @-> returning reil_t) 
 
 let reil_close = foreign "reil_close" (reil_t @-> returning void)
 
