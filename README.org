@@ -20,10 +20,22 @@ Only tested on Linux.
   
 * Using the bindings
 
-  There are two options to build against the bindings. By default openreil builds a static library (libopenreil.a)
+  There are two options to build against the bindings. By default openreil builds a static library (libopenreil.a). 
+  
+  There are two test binaries built: test_openreil_static.native uses
+  static linking, and test_openreil_dynamic.native uses dynamic
+  linking.
+
+  Before running test_openreil_dynamic.native make sure that
+  libopenreil.so is built as below, and available to the linker by
+  setting:
+  
+  #+BEGIN_SRC bash
+  export LD_LIBRARY_PATH=/usr/local/lib
+  #+END_SRC
+
 
 ** Static linking
-
 
       Use the following gcc flags:
 
