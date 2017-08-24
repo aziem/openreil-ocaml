@@ -40,11 +40,21 @@ Executable ffi_types_stubgen
   BuildTools: ocamlbuild
   BuildDepends: reil_bindings
 
-Executable test_openreil
+Executable test_openreil_static
   Install: false
   Path: lib-test
   BuildTools: ocamlbuild
-  MainIs: test_openreil.ml
+  MainIs: test_openreil_static.ml
   CCLib: -Wl,--whole-archive /usr/local/lib/libopenreil.a -Wl,--no-whole-archive -Wl,-E -lstdc++
   CompiledObject: best
   BuildDepends: openreil, ctypes
+
+Executable test_openreil_dynamic
+  Install: false
+  Path: lib-test
+  BuildTools: ocamlbuild
+  MainIs: test_openreil_dynamic.ml
+  CCLib: -lopenreil -lstdc++
+  CompiledObject: best
+  BuildDepends: openreil, ctypes
+

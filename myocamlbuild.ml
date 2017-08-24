@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 3c01e6f58be79ef7d86e622b38b99912) *)
+(* DO NOT EDIT (digest: 54039e3d4621f7b7c0c92253a6b4b001) *)
 module OASISGettext = struct
 (* # 22 "src/oasis/OASISGettext.ml" *)
 
@@ -896,7 +896,7 @@ let package_default =
             [(OASISExpr.EBool true, S [A "-warn-error"; A "+1..45"])]);
           (["oasis_library_openreil_native"; "ocaml"; "compile"; "native"],
             [(OASISExpr.EBool true, S [A "-warn-error"; A "+1..45"])]);
-          (["oasis_executable_test_openreil_cclib"; "link"],
+          (["oasis_executable_test_openreil_static_cclib"; "link"],
             [
                (OASISExpr.EBool true,
                  S
@@ -913,7 +913,7 @@ let package_default =
                       A "-lstdc++"
                    ])
             ]);
-          (["oasis_executable_test_openreil_cclib"; "ocamlmklib"; "c"],
+          (["oasis_executable_test_openreil_static_cclib"; "ocamlmklib"; "c"],
             [
                (OASISExpr.EBool true,
                  S
@@ -924,7 +924,15 @@ let package_default =
                       A "-Wl,-E";
                       A "-lstdc++"
                    ])
-            ])
+            ]);
+          (["oasis_executable_test_openreil_dynamic_cclib"; "link"],
+            [
+               (OASISExpr.EBool true,
+                 S [A "-cclib"; A "-lopenreil"; A "-cclib"; A "-lstdc++"])
+            ]);
+          (["oasis_executable_test_openreil_dynamic_cclib"; "ocamlmklib"; "c"
+           ],
+            [(OASISExpr.EBool true, S [A "-lopenreil"; A "-lstdc++"])])
        ];
      includes =
        [
@@ -939,7 +947,7 @@ let conf = {MyOCamlbuildFindlib.no_automatic_syntax = false}
 
 let dispatch_default = MyOCamlbuildBase.dispatch_default conf package_default;;
 
-# 943 "myocamlbuild.ml"
+# 951 "myocamlbuild.ml"
 (* OASIS_STOP *)
 
 let dispatch = function
