@@ -43,6 +43,7 @@ type reil_inst_handler = reil_inst -> context -> int
 
 val create_context : unit -> context 
 val reil_translate : reil_t -> Unsigned.ullong -> string -> int -> int
+val reil_translate_insn : reil_t -> Unsigned.ullong -> string -> int -> int
 val reil_inst_print : reil_inst -> unit
 val reil_init : reil_arch -> reil_inst_handler -> context -> reil_t
 val reil_close : reil_t -> unit
