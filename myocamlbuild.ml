@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 54039e3d4621f7b7c0c92253a6b4b001) *)
+(* DO NOT EDIT (digest: 76a9546813c74700f0583ee67ebed219) *)
 module OASISGettext = struct
 (* # 22 "src/oasis/OASISGettext.ml" *)
 
@@ -896,35 +896,6 @@ let package_default =
             [(OASISExpr.EBool true, S [A "-warn-error"; A "+1..45"])]);
           (["oasis_library_openreil_native"; "ocaml"; "compile"; "native"],
             [(OASISExpr.EBool true, S [A "-warn-error"; A "+1..45"])]);
-          (["oasis_executable_test_openreil_static_cclib"; "link"],
-            [
-               (OASISExpr.EBool true,
-                 S
-                   [
-                      A "-cclib";
-                      A "-Wl,--whole-archive";
-                      A "-cclib";
-                      A "/usr/local/lib/libopenreil.a";
-                      A "-cclib";
-                      A "-Wl,--no-whole-archive";
-                      A "-cclib";
-                      A "-Wl,-E";
-                      A "-cclib";
-                      A "-lstdc++"
-                   ])
-            ]);
-          (["oasis_executable_test_openreil_static_cclib"; "ocamlmklib"; "c"],
-            [
-               (OASISExpr.EBool true,
-                 S
-                   [
-                      A "-Wl,--whole-archive";
-                      A "/usr/local/lib/libopenreil.a";
-                      A "-Wl,--no-whole-archive";
-                      A "-Wl,-E";
-                      A "-lstdc++"
-                   ])
-            ]);
           (["oasis_executable_test_openreil_dynamic_cclib"; "link"],
             [
                (OASISExpr.EBool true,
@@ -947,7 +918,7 @@ let conf = {MyOCamlbuildFindlib.no_automatic_syntax = false}
 
 let dispatch_default = MyOCamlbuildBase.dispatch_default conf package_default;;
 
-# 951 "myocamlbuild.ml"
+# 922 "myocamlbuild.ml"
 (* OASIS_STOP *)
 
 let dispatch = function
@@ -993,7 +964,10 @@ let dispatch = function
       (fun _ _ ->
          Cmd(S[P stubgen; A"-c"; Sh">"; A"lib/ffi_generated_stubs.c"]));
 
-    flag ["c"; "compile"] & S[A"-I"; A"lib"; A"-package"; A"ctypes"]; ()
+    flag ["c"; "compile"] & S[A"-I"; A"lib"; A"-package"; A"ctypes"];
+    flag ["ocaml"; "library"; "openreil"] & S[A"-cclib"; A("-Wl,--whole-archive /usr/local/lib/libopenreil.a") ; A"-cclib"; A"-Wl,--no-whole-archive"; A"-cclib";A"-Wl,-E"; A"-cclib"; A"-lstdc++"];
+
+    ()
   | _ ->
     ()
 

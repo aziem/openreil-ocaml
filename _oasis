@@ -45,7 +45,6 @@ Executable test_openreil_static
   Path: lib-test
   BuildTools: ocamlbuild
   MainIs: test_openreil_static.ml
-  CCLib: -Wl,--whole-archive /usr/local/lib/libopenreil.a -Wl,--no-whole-archive -Wl,-E -lstdc++
   CompiledObject: best
   BuildDepends: openreil, ctypes
 
